@@ -20,8 +20,6 @@ import wheelevent from './assets/addWheelListener'
 import $ from 'jquery'
 import 'jquery-ui/ui/widgets/draggable'
 
-import { pageSizeChange } from '../../../vuex/getters/page-getters'
-
 export default {
   data () {
     return {
