@@ -1,0 +1,97 @@
+.vue-zoom-container{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.vue-zoom-drag-container{
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.vue-zoom-outer{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.vue-zoom-inner{
+  position: absolute;
+  transform-origin: 50% 50%;
+}
+
+.vue-zoom-tools-container {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.vue-zoom-tools-btn {
+  display: block;
+  padding: 0.2em;
+  font-size: 14px;
+  height: 1em;
+  width: 1em;
+  margin: 0.3em;
+  border-radius: 0.1em;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.65);
+  color: rgba(0, 0, 0, 0.7);
+  background-color: #fff;
+  transition: color 200ms;
+  cursor: pointer;
+  &:hover {
+    color: rgba(0, 0, 0, 1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.85);
+  }
+  &:active {
+    // color: #09e;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.85);
+  }
+  &[disabled] {
+    color: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.35);
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+
+.min-map-contianer{
+  position: absolute;
+  width: 14%;
+  height: 14%;
+  top: 20px;
+  right: 20px;
+  overflow: hidden;
+}
+.min-map{
+  position: absolute;
+  -webkit-transform-origin: 0% 0%;
+  -moz-transform-origin: 0% 0%;
+  -ms-transform-origin: 0% 0%;
+  transform-origin: 0% 0%;
+  box-shadow:inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.min-map-outer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+.min-map-view{
+  position: absolute;
+  -webkit-transform-origin: 0% 0%;
+  -moz-transform-origin: 0% 0%;
+  -ms-transform-origin: 0% 0%;
+  transform-origin: 0% 0%;
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
