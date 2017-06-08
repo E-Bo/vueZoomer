@@ -1,6 +1,6 @@
 # vueZoomer
 zoom-helper vue wrap
 
-###### dependencies:
+### dependencies:
 * jQuery
 * jQuery-UI
