@@ -12,9 +12,6 @@
         <i :class="btn.iconClass"></i>
       </a>
     </div>
-    <div v-if="minMap" class="vue-zoom-mini-map-container">
-      <slot name="miniMap"></slot>
-    </div>
   </div>
 </template>
 
@@ -101,17 +98,7 @@ export default {
       ]
     }
   },
-  vuex: {
-    getters: {
-      pageSizeChange
-    }
-  },
   props: {
-    minMap: {
-      required: false,
-      type: Boolean,
-      default: false
-    },
     step: {
       required: false,
       type: Number,
@@ -215,9 +202,6 @@ export default {
           self.dragState = true
         },
         drag: $.proxy(function (event) {
-          // if (self.minMap) {
-          //   self.setMinMap()
-          // }
         }, self),
         stop: function (event) {
           self.dragState = false
@@ -325,9 +309,6 @@ export default {
     }
   },
   watch: {
-    pageSizeChange () {
-      this.initZoomer()
-    }
   }
 }
 </script>
