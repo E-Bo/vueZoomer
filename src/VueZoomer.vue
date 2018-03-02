@@ -19,7 +19,9 @@
 </template>
 
 <script>
-import wheelevent from './assets/addWheelListener'
+// import wheelevent from '../../../lib/addWheelListener'
+import addWheelListener from 'wheel'
+import removeWheelListener from 'wheel'
 import $ from 'jquery'
 import 'jquery-ui/ui/widgets/draggable'
 
@@ -35,6 +37,7 @@ export default {
       jQTarget: null,
       jQContainer: null,
       jQDragContainer: null,
+      wheelState: null,
       targetStyle: {
         width: 0,
         height: 0
@@ -127,11 +130,15 @@ export default {
       type: Number,
       default: 0.4
     },
+    useWheel: {
+      required: false,
+      type: Boolean,
+      default: true
+    },
     afterZoom: {
       required: false,
       type: Function,
       default () {
-        return function () {}
       }
     },
     cancel: {
@@ -176,6 +183,12 @@ export default {
       this.zoomToSuitable(true)
     })
   },
+  beforeDestroy () {
+    this.clearWheelListener()
+    this.clearDraggable()
+    this.jQContainer = null
+    this.jQTarget = null
+  },
   methods: {
     initZoomer () {
       this.setTargetStyle()
@@ -203,8 +216,17 @@ export default {
       this.centerPosition = this.getCenterPosition()
     },
     initWheelListener () {
-      wheelevent(window, document)
-      window.addWheelListener(this.$els.vZoomContainer, $.proxy(this.wheelZoom, this), false)
+      if (this.useWheel && !this.wheelState) {
+        // 由于是动态注册，故未使用声明式的 @wheel.stop.prevent 注册，当然如果声明式注册也可以在处理方法中进行拦截，个人习惯而已
+        addWheelListener(this.$els.vZoomContainer, this.wheelZoom)
+        this.wheelState = true
+      }
+    },
+    clearWheelListener () {
+      if (this.useWheel && this.wheelState) {
+        removeWheelListener(this.$els.vZoomContainer, this.wheelZoom)
+        this.wheelState = false
+      }
     },
     initDraggable () {
       var self = this
@@ -223,6 +245,12 @@ export default {
           self.dragState = false
         }
       })
+    },
+    clearDraggable () {
+      if (this.jQDragContainer) {
+        this.jQDragContainer.draggable('destroy')
+        this.jQDragContainer = null
+      }
     },
     zoom (originPoint, newScale, noCallback) {
       if (newScale === this.scale) {
@@ -326,6 +354,11 @@ export default {
   },
   watch: {
     pageSizeChange () {
+      this.initZoomer()
+    }
+  },
+  events: {
+    'v-zoomer.init' () {
       this.initZoomer()
     }
   }
