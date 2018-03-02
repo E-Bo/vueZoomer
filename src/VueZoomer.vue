@@ -12,9 +12,6 @@
         <i :class="btn.iconClass"></i>
       </a>
     </div>
-    <div v-if="minMap" class="vue-zoom-mini-map-container">
-      <slot name="miniMap"></slot>
-    </div>
   </div>
 </template>
 
@@ -24,8 +21,6 @@ import addWheelListener from 'wheel'
 import removeWheelListener from 'wheel'
 import $ from 'jquery'
 import 'jquery-ui/ui/widgets/draggable'
-
-import { pageSizeChange } from '../../../vuex/getters/page-getters'
 
 export default {
   data () {
@@ -104,17 +99,7 @@ export default {
       ]
     }
   },
-  vuex: {
-    getters: {
-      pageSizeChange
-    }
-  },
   props: {
-    minMap: {
-      required: false,
-      type: Boolean,
-      default: false
-    },
     step: {
       required: false,
       type: Number,
@@ -237,9 +222,6 @@ export default {
           self.dragState = true
         },
         drag: $.proxy(function (event) {
-          // if (self.minMap) {
-          //   self.setMinMap()
-          // }
         }, self),
         stop: function (event) {
           self.dragState = false
@@ -353,6 +335,7 @@ export default {
     }
   },
   watch: {
+<<<<<<< HEAD
     pageSizeChange () {
       this.initZoomer()
     }
@@ -361,6 +344,8 @@ export default {
     'v-zoomer.init' () {
       this.initZoomer()
     }
+=======
+>>>>>>> origin/master
   }
 }
 </script>
